@@ -7,6 +7,21 @@ on:
   workflow_dispatch:
 
 jobs:
+  package:
+    name: Package Extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: Package Extension
+        id: packageExtension
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: stub
+          dryRun: true
+      - name: Upload Extension Package as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ubuntu-latest
+          path: ${{ steps.packageExtension.outputs.vsixPath }}
   publish:
     name: Publish 
     runs-on: ubuntu-latest
